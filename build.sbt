@@ -1,4 +1,3 @@
-
 organization := "com.github.debop"
 
 name := "hibernate-rediscala"

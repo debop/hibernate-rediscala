@@ -30,6 +30,6 @@ libraryDependencies ++= Seq(
 resolvers ++= Seq(
     "Local Maven Repository" at "file://" + Path.userHome.absolutePath + "/.m2/repository",
     "typesafe" at "http://repo.typesafe.com/typesafe/releases",
-    "rediscala" at "https://github.com/etaty/rediscala-mvn/raw/master/releases/",
+    "rediscala" at "https://github.com/etaty/rediscala-mvn/tree/master/releases",
     "jboss" at "http://repository.jboss.org/nexus/content/groups/public"
 )

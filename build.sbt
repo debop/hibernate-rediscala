@@ -46,6 +46,9 @@ libraryDependencies ++= Seq(
 
 compileOrder := CompileOrder.Mixed
 
-javaOptions += "-ea -server -Xms512M -Xmx2G -XX:MaxPermSize=256M -XX:+CMSClassUnloadingEnabled"
+javaOptions ++= Seq("-encoding", "UTF-8", "-source", "1.7", "-target", "1.7",
+    "-ea -server -Xms512M -Xmx2G -XX:MaxPermSize=256M -XX:+CMSClassUnloadingEnabled")
 
-scalacOptions += "-target:jvm-1.7"
+scalacOptions ++= Seq("-encoding", "UTF-8", "-target:jvm-1.7")
+
+fork in run := true

@@ -1,8 +1,21 @@
+
+organization := "com.github.debop"
+
 name := "hibernate-rediscala"
 
 version := "1.1-SNAPSHOT"
 
 scalaVersion := "2.10.4"
+
+unmanagedBase := baseDirectory.value / "lib"
+
+resolvers ++= Seq(
+    Resolver.mavenLocal,
+    Resolver.sonatypeRepo("releases"),
+    Resolver.typesafeRepo("releases"),
+    "rediscala" at "https://github.com/etaty/rediscala-mvn/tree/master/releases",
+    "jboss" at "http://repository.jboss.org/nexus/content/groups/public"
+)
 
 val hibernateVersion = "4.3.4.Final"
 val springVersion = "4.0.2.RELEASE"
@@ -32,9 +45,8 @@ libraryDependencies ++= Seq(
     "junit" % "junit" % "4.11" % "test"
 )
 
-resolvers ++= Seq(
-    "Local Maven Repository" at "file://" + Path.userHome.absolutePath + "/.m2/repository",
-    "typesafe" at "http://repo.typesafe.com/typesafe/releases",
-    "rediscala" at "https://github.com/etaty/rediscala-mvn/tree/master/releases",
-    "jboss" at "http://repository.jboss.org/nexus/content/groups/public"
-)
+compileOrder := CompileOrder.Mixed
+
+javaOptions += "-ea -server -Xms512M -Xmx2G -XX:MaxPermSize=256M -XX:+CMSClassUnloadingEnabled"
+
+scalacOptions += "-target:jvm-1.7"

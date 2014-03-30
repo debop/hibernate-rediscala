@@ -25,9 +25,11 @@ libraryDependencies ++= Seq(
     "org.springframework" % "spring-beans" % springVersion % "test",
     "org.springframework" % "spring-context" % springVersion % "test",
     "org.springframework" % "spring-orm" % springVersion % "test",
+    "org.springframework" % "spring-test" % springVersion % "test",
     "org.springframework.data" % "spring-data-jpa" % "1.5.1.RELEASE" % "test",
     "joda-time" % "joda-time" % "2.3" % "test",
-    "org.joda" % "joda-convert" % "1.5" % "test"
+    "org.joda" % "joda-convert" % "1.5" % "test",
+    "junit" % "junit" % "4.11" % "test"
 )
 
 resolvers ++= Seq(

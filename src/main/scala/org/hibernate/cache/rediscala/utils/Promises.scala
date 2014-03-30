@@ -1,4 +1,4 @@
-package org.hibernate.cache.rediscala
+package org.hibernate.cache.rediscala.utils
 
 import java.util.concurrent.TimeUnit
 import scala.concurrent._

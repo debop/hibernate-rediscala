@@ -33,8 +33,10 @@ class JpaRedisConfiguration {
     def getDatabaseName = "hibernate"
 
     def getMappedPackageNames: Array[String] =
-        Array(classOf[JpaAccount].getPackage.getName,
-            classOf[Event].getPackage.getName)
+        Array(
+            classOf[JpaAccount].getPackage.getName,
+            classOf[Event].getPackage.getName
+        )
 
     def getNamingStrategy: NamingStrategy = null
 
@@ -44,7 +46,7 @@ class JpaRedisConfiguration {
         props.setProperty(AvailableSettings.FORMAT_SQL, "true")
         // create | create-drop | spawn | spawn-drop | update | validate | none
         props.setProperty(AvailableSettings.HBM2DDL_AUTO, "create")
-        props.setProperty(AvailableSettings.POOL_SIZE, "30")
+        props.setProperty(AvailableSettings.POOL_SIZE, "100")
         props.setProperty(AvailableSettings.SHOW_SQL, "true")
         props.setProperty(AvailableSettings.FORMAT_SQL, "true")
         props.setProperty(AvailableSettings.AUTOCOMMIT, "true")

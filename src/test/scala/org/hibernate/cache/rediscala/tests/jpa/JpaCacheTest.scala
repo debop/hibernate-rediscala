@@ -5,7 +5,6 @@ import org.hibernate.cache.rediscala.tests.domain.Item
 import org.hibernate.cache.rediscala.tests.jpa.repository.{ItemRepository, EventRepository}
 import org.junit.runner.RunWith
 import org.junit.{Test, Before}
-import org.scalatest.junit.JUnitSuite
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
@@ -17,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional
 /**
  * NOTE: JPA 관련은 @Transactional 을 수행해야 해서 JUnitSuite를 사용해야 합니다.
  *
+ * @note Spring-Test 사용 시는 scalatest 를 사용하지 않고, junit 고유 기능만 사용해야 합니다. 이 놈 때문에 sbt 에서 에러가 나서 엄청 헤맸음!!!
+ *
  * @author sunghyouk.bae@gmail.com
  * @since 2014. 2. 26.
  */
@@ -24,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional
 @ContextConfiguration(classes = Array(classOf[JpaRedisConfiguration]),
     loader = classOf[AnnotationConfigContextLoader])
 @Transactional
-class JpaCacheTest extends JUnitSuite {
+class JpaCacheTest {
 
     private lazy val log = LoggerFactory.getLogger(getClass)
 

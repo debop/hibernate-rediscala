@@ -53,3 +53,6 @@ javaOptions ++= Seq("-encoding", "UTF-8", "-source", "1.7", "-target", "1.7",
 scalacOptions ++= Seq("-encoding", "UTF-8", "-target:jvm-1.7")
 
 fork in run := true
+
+// http://www.scala-sbt.org/release/docs/Detailed-Topics/Testing#options
+// testOptions += Tests.Argument(TestFrameworks.JUnit, "-v")

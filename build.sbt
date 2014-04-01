@@ -17,7 +17,7 @@ resolvers ++= Seq(
 )
 
 val hibernateVersion = "4.3.4.Final"
-val springVersion = "4.0.3.RELEASE"
+val springVersion = "4.0.2.RELEASE"
 
 libraryDependencies ++= Seq(
     "org.scala-lang" % "scala-reflect" % "2.10.4",
@@ -47,19 +47,12 @@ libraryDependencies ++= Seq(
 
 compileOrder := CompileOrder.Mixed
 
-javacOptions ++= Seq("-encoding", "UTF-8", "-source", "1.7", "-target", "1.7")
+javaOptions ++= Seq("-encoding", "UTF-8", "-source", "1.7", "-target", "1.7",
+    "-ea -server -Xms512M -Xmx2G -XX:MaxPermSize=256M -XX:+CMSClassUnloadingEnabled")
 
-javaOptions ++= Seq("-server", "-Xms512M", "-Xmx2G", "-XX:MaxPermSize=512M", "-XX:+CMSClassUnloadingEnabled")
-
-scalacOptions ++= Seq("-deprecation", "-encoding", "UTF-8", "-target:jvm-1.7")
+scalacOptions ++= Seq("-encoding", "UTF-8", "-target:jvm-1.7")
 
 fork in run := true
 
-fork in Test := true
-
-// JPA, Hibernate 테스트 시에는 꼭 병렬 실행을 하지 말아야합니다. !!!
-parallelExecution in Test := false
-
 // http://www.scala-sbt.org/release/docs/Detailed-Topics/Testing#options
-testOptions += Tests.Argument(TestFrameworks.JUnit, "-v")
-
+// testOptions += Tests.Argument(TestFrameworks.JUnit, "-v")

@@ -17,7 +17,7 @@ resolvers ++= Seq(
 )
 
 val hibernateVersion = "4.3.4.Final"
-val springVersion = "4.0.2.RELEASE"
+val springVersion = "4.0.3.RELEASE"
 
 libraryDependencies ++= Seq(
     "org.scala-lang" % "scala-reflect" % "2.10.4",
@@ -53,6 +53,10 @@ javaOptions ++= Seq("-encoding", "UTF-8", "-source", "1.7", "-target", "1.7",
 scalacOptions ++= Seq("-encoding", "UTF-8", "-target:jvm-1.7")
 
 fork in run := true
+
+fork in Test := true
+
+parallelExecution in Test := false
 
 // http://www.scala-sbt.org/release/docs/Detailed-Topics/Testing#options
 // testOptions += Tests.Argument(TestFrameworks.JUnit, "-v")

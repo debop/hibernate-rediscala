@@ -47,8 +47,9 @@ libraryDependencies ++= Seq(
 
 compileOrder := CompileOrder.Mixed
 
-javaOptions ++= Seq("-encoding", "UTF-8", "-source", "1.7", "-target", "1.7",
-    "-ea -server -Xms512M -Xmx2G -XX:MaxPermSize=256M -XX:+CMSClassUnloadingEnabled")
+javacOptions ++= Seq("-encoding", "UTF-8", "-source", "1.7", "-target", "1.7")
+
+javaOptions ++= Seq("-ea", "-server", "-Xms512M", "-Xmx2G", "-XX:MaxPermSize=256M", "-XX:+CMSClassUnloadingEnabled")
 
 scalacOptions ++= Seq("-encoding", "UTF-8", "-target:jvm-1.7")
 
@@ -59,4 +60,4 @@ fork in Test := true
 parallelExecution in Test := false
 
 // http://www.scala-sbt.org/release/docs/Detailed-Topics/Testing#options
-// testOptions += Tests.Argument(TestFrameworks.JUnit, "-v")
+testOptions += Tests.Argument(TestFrameworks.JUnit, "-v")

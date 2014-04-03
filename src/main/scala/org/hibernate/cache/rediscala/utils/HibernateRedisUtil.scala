@@ -31,7 +31,8 @@ object HibernateRedisUtil {
     private var cacheProperties: Properties = _
 
     /**
-     * [[CacheClient]] 를 생성합니다.
+     * `HibernateRedisCache` 를 생성합니다.
+     * @param props Hibernate property 정보
      */
     def createCacheClient(props: Properties): HibernateRedisCache = {
         log.info("RedisClient 인스턴스를 생성합니다...")

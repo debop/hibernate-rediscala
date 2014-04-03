@@ -1,4 +1,4 @@
-package org.hibernate.cache.rediscala.tests.jpa
+package org.hibernate.cache.rediscala.tests.domain
 
 import javax.persistence._
 import org.hibernate.cache.rediscala.utils.Hashs
@@ -13,7 +13,7 @@ import org.hibernate.cache.rediscala.utils.Hashs
 @Access(AccessType.FIELD)
 @NamedQuery(name = "JpaAccount.findByName", query = "select ja from JpaAccount ja where ja.name=?1")
 @SerialVersionUID(8986275418970766284L)
-class JpaAccount extends Serializable {
+class JpaAccount {
 
     @Id
     @GeneratedValue

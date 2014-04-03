@@ -7,20 +7,23 @@ import org.hibernate.cache.rediscala.utils.HibernateRedisUtil
 import org.hibernate.stat.SecondLevelCacheStatistics
 import org.junit.runner.RunWith
 import org.junit.{Test, Before}
-import org.scalatest.junit.{JUnitRunner, JUnitSuite}
+import org.scalatest.junit.JUnitSuite
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 import org.springframework.test.context.support.AnnotationConfigContextLoader
 import org.springframework.test.context.{TestContextManager, ContextConfiguration}
+import org.springframework.transaction.annotation.Transactional
 import scala.collection.JavaConversions._
 
 /**
  * HibernateCacheTest
  * Created by debop on 2014. 2. 26.
  */
-@RunWith(classOf[JUnitRunner])
+@RunWith(classOf[SpringJUnit4ClassRunner])
 @ContextConfiguration(classes = Array(classOf[HibernateRedisConfiguration]),
     loader = classOf[AnnotationConfigContextLoader])
+@Transactional
 class HibernateCacheTest extends JUnitSuite {
 
     private lazy val log = LoggerFactory.getLogger(getClass)

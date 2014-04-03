@@ -28,26 +28,25 @@ import org.springframework.transaction.annotation.EnableTransactionManagement
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackageClasses = Array(classOf[JpaAccountRepository], classOf[EventRepository]))
 class JpaRedisConfiguration {
-    lazy val log = LoggerFactory.getLogger(getClass)
+
+    private lazy val log = LoggerFactory.getLogger(getClass)
 
     def getDatabaseName = "hibernate"
 
     def getMappedPackageNames: Array[String] =
-        Array(classOf[JpaAccount].getPackage.getName,
-            classOf[Event].getPackage.getName)
+        Array(
+            classOf[Event].getPackage.getName
+        )
 
     def getNamingStrategy: NamingStrategy = null
 
     def jpaProperties: Properties = {
         val props = new Properties()
 
-        props.setProperty(AvailableSettings.FORMAT_SQL, "true")
-        // create | create-drop | spawn | spawn-drop | update | validate | none
         props.setProperty(AvailableSettings.HBM2DDL_AUTO, "create")
-        props.setProperty(AvailableSettings.POOL_SIZE, "30")
-        props.setProperty(AvailableSettings.SHOW_SQL, "true")
         props.setProperty(AvailableSettings.FORMAT_SQL, "true")
-        props.setProperty(AvailableSettings.AUTOCOMMIT, "true")
+        props.setProperty(AvailableSettings.SHOW_SQL, "false")
+        props.setProperty(AvailableSettings.POOL_SIZE, "100")
 
         // Secondary Cache
         props.setProperty(AvailableSettings.USE_SECOND_LEVEL_CACHE, "true")
@@ -84,11 +83,7 @@ class JpaRedisConfiguration {
 
         val factoryBean = new LocalContainerEntityManagerFactoryBean()
 
-        val packagenames = getMappedPackageNames
-        if (packagenames != null && packagenames.length > 0) {
-            log.debug(s"hibernate용 entity를 scan 합니다. packages=[$packagenames]")
-            factoryBean.setPackagesToScan(packagenames: _*)
-        }
+        factoryBean.setPackagesToScan(getMappedPackageNames: _*)
         factoryBean.setDataSource(dataSource)
         factoryBean.setJpaProperties(jpaProperties)
 

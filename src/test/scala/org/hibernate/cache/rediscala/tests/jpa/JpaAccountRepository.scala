@@ -1,5 +1,6 @@
 package org.hibernate.cache.rediscala.tests.jpa
 
+import org.hibernate.cache.rediscala.tests.domain.JpaAccount
 import org.springframework.data.jpa.repository.{Query, JpaRepository}
 import org.springframework.data.repository.query.Param
 

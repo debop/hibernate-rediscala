@@ -1,13 +1,28 @@
+organization := "com.github.debop"
+
 name := "hibernate-rediscala"
 
-version := "1.0"
+version := "1.1"
 
 scalaVersion := "2.10.4"
 
+unmanagedBase := baseDirectory.value / "lib"
+
+resolvers ++= Seq(
+    Resolver.mavenLocal,
+    Resolver.sonatypeRepo("releases"),
+    Resolver.typesafeRepo("releases"),
+    // travis can't access 'https'
+    // "rediscala" at "https://github.com/etaty/rediscala-mvn/tree/master/releases",
+    "rediscala" at "http://pk11-scratch.googlecode.com/svn/trunk/",
+    "jboss" at "http://repository.jboss.org/nexus/content/groups/public"
+)
+
 val hibernateVersion = "4.3.4.Final"
-val springVersion = "4.0.2.RELEASE"
+val springVersion = "4.0.3.RELEASE"
 
 libraryDependencies ++= Seq(
+    "org.scala-lang" % "scala-reflect" % "2.10.4",
     "com.etaty.rediscala" %% "rediscala" % "1.3",
     "org.hibernate" % "hibernate-entitymanager" % hibernateVersion,
     "org.xerial.snappy" % "snappy-java" % "1.1.0.1",
@@ -32,9 +47,19 @@ libraryDependencies ++= Seq(
     "junit" % "junit" % "4.11" % "test"
 )
 
-resolvers ++= Seq(
-    "Local Maven Repository" at "file://" + Path.userHome.absolutePath + "/.m2/repository",
-    "typesafe" at "http://repo.typesafe.com/typesafe/releases",
-    "rediscala" at "https://github.com/etaty/rediscala-mvn/tree/master/releases",
-    "jboss" at "http://repository.jboss.org/nexus/content/groups/public"
-)
+compileOrder := CompileOrder.Mixed
+
+javacOptions ++= Seq("-encoding", "UTF-8", "-source", "1.7", "-target", "1.7")
+
+javaOptions ++= Seq("-ea", "-server", "-Xms512M", "-Xmx2G", "-XX:MaxPermSize=256M", "-XX:+CMSClassUnloadingEnabled")
+
+scalacOptions ++= Seq("-encoding", "UTF-8", "-target:jvm-1.7")
+
+fork in run := true
+
+fork in Test := true
+
+parallelExecution in Test := false
+
+// http://www.scala-sbt.org/release/docs/Detailed-Topics/Testing#options
+testOptions += Tests.Argument(TestFrameworks.JUnit, "-v")

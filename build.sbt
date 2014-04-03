@@ -12,7 +12,9 @@ resolvers ++= Seq(
     Resolver.mavenLocal,
     Resolver.sonatypeRepo("releases"),
     Resolver.typesafeRepo("releases"),
-    "rediscala" at "https://github.com/etaty/rediscala-mvn/tree/master/releases",
+    // travis can't access 'https'
+    // "rediscala" at "https://github.com/etaty/rediscala-mvn/tree/master/releases",
+    "rediscala" at "http://pk11-scratch.googlecode.com/svn/trunk/",
     "jboss" at "http://repository.jboss.org/nexus/content/groups/public"
 )
 

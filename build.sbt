@@ -2,7 +2,7 @@ organization := "com.github.debop"
 
 name := "hibernate-rediscala"
 
-version := "1.1"
+version := "1.1.1-SNAPSHOT"
 
 scalaVersion := "2.10.4"
 

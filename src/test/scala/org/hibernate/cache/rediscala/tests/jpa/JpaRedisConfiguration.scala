@@ -63,12 +63,13 @@ class JpaRedisConfiguration {
     @Bean
     def dataSource: DataSource = {
         val config = new HikariConfig()
-        config.setMaximumPoolSize(200)
 
         config.setDataSourceClassName("org.h2.jdbcx.JdbcDataSource")
         config.addDataSourceProperty("url", "jdbc:h2:mem:test;MVCC=true")
         config.addDataSourceProperty("user", "sa")
         config.addDataSourceProperty("password", "")
+
+        config.setInitializationFailFast(true)
 
         new HikariDataSource(config)
     }

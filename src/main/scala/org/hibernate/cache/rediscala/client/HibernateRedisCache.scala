@@ -1,6 +1,7 @@
 package org.hibernate.cache.rediscala.client
 
 import akka.util.ByteString
+import java.util.concurrent.TimeUnit
 import org.hibernate.cache.rediscala.serializer.{FstRedisSerializer, SnappyRedisSerializer}
 import org.slf4j.LoggerFactory
 import redis.RedisClient
@@ -10,10 +11,9 @@ import redis.protocol.MultiBulk
 import scala.annotation.varargs
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent._
+import scala.concurrent.duration.TimeUnit
 import scala.concurrent.duration._
 import scala.util.{Success, Try}
-import java.util.concurrent.TimeUnit
-import scala.concurrent.duration.TimeUnit
 
 
 /**
@@ -119,7 +119,7 @@ class HibernateRedisCache(val redis: RedisClient) {
     def set(region: String, key: String, value: Any, expiry: Long = 0, unit: TimeUnit = TimeUnit.SECONDS): Future[Boolean] = {
         val p = Promise[Boolean]()
         // 값 변환
-        val f = future {
+        val f = Future {
             ByteString(valueSerializer.serialize(value))
         }
 
@@ -144,7 +144,7 @@ class HibernateRedisCache(val redis: RedisClient) {
      * @param region regions name
      */
     @inline
-    def expire(region: String): Future[Unit] = future {
+    def expire(region: String): Future[Unit] = Future {
         val regionExpire = regionExpireKey(region)
         val score = System.currentTimeMillis()
 
@@ -175,7 +175,7 @@ class HibernateRedisCache(val redis: RedisClient) {
         if (keys == null || keys.isEmpty)
             return Future(false)
 
-        future {
+        Future {
             val regionExpire = regionExpireKey(region)
             keys.foreach { key =>
                 redis.hdel(region, key)

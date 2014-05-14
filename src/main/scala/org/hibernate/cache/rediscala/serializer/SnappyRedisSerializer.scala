@@ -1,7 +1,7 @@
 package org.hibernate.cache.rediscala.serializer
 
-import scala.reflect.ClassTag
 import org.xerial.snappy.Snappy
+import scala.reflect.ClassTag
 
 /**
  * SnappyRedisSerializer
@@ -20,7 +20,7 @@ private[rediscala] class SnappyRedisSerializer[T](val inner: RedisSerializer[T])
         if (bytes == null || bytes.length == 0)
             return null.asInstanceOf[T]
 
-        inner.deserialize(Snappy.uncompress(bytes)).asInstanceOf[T]
+        inner.deserialize(Snappy.uncompress(bytes))
     }
 }
 

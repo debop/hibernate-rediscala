@@ -1,7 +1,6 @@
 package org.hibernate.cache.rediscala.utils
 
 import java.util.concurrent.Callable
-import org.slf4j.LoggerFactory
 import scala.collection.mutable
 
 /**
@@ -11,8 +10,6 @@ import scala.collection.mutable
  * @since  2013. 12. 9. 오후 9:36
  */
 object Local {
-
-    private lazy val log = LoggerFactory.getLogger(getClass)
 
     private lazy val threadLocal = new ThreadLocal[mutable.LinkedHashMap[Any, Any]]() {
         override def initialValue(): mutable.LinkedHashMap[Any, Any] = {

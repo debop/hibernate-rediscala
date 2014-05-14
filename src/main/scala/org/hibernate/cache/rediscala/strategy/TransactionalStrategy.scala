@@ -1,9 +1,8 @@
 package org.hibernate.cache.rediscala.strategy
 
+import org.hibernate.cache.rediscala.regions._
 import org.hibernate.cache.spi.access._
 import org.hibernate.cfg.Settings
-import org.slf4j.LoggerFactory
-import org.hibernate.cache.rediscala.regions._
 
 /**
  * org.hibernate.cache.rediscala.strategy.TransactionalEntityRegionCollectionAccessStrategy
@@ -109,8 +108,6 @@ class TransactionalRedisNatualIdRegionAccessStrategy(private[this] val _region: 
                                                      private[this] val _settings: Settings)
     extends AbstractRedisAccessStrategy(_region, _settings)
     with NaturalIdRegionAccessStrategy {
-
-    private lazy val log = LoggerFactory.getLogger(getClass)
 
     override def getRegion = region
 

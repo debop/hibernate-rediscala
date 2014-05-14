@@ -41,10 +41,10 @@ object HibernateRedisUtil {
         cacheProperties = loadCacheProperties(cachePath)
 
         if (cacheProperties != null) {
-            val expiryInSeconds = Integer.decode(cacheProperties.getProperty("redis.expiryInSeconds", "0"))
+            // val expiryInSeconds = Integer.decode(cacheProperties.getProperty("redis.expiryInSeconds", "0"))
             val host = cacheProperties.getProperty("redis.host", "localhost")
             val port = cacheProperties.getProperty("redis.port", String.valueOf(DEFAULT_PORT)).toInt
-            val timeout = cacheProperties.getProperty("redis.timeout", String.valueOf(DEFAULT_TIMEOUT)).toInt
+            // val timeout = cacheProperties.getProperty("redis.timeout", String.valueOf(DEFAULT_TIMEOUT)).toInt
             val passwd = cacheProperties.getProperty("redis.password", "")
             val database = cacheProperties.getProperty("redis.database", String.valueOf(DEFAULT_DATABASE)).toInt
 
@@ -74,7 +74,7 @@ object HibernateRedisUtil {
         try {
             cacheProperties.getProperty(name, defaultValue)
         } catch {
-            case ignored: Throwable => return defaultValue
+            case ignored: Throwable => defaultValue
         }
     }
 

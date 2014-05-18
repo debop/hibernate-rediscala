@@ -1,7 +1,6 @@
 package org.hibernate.cache.rediscala.serializer
 
 import org.xerial.snappy.Snappy
-import scala.reflect.ClassTag
 
 /**
  * SnappyRedisSerializer
@@ -26,11 +25,7 @@ private[rediscala] class SnappyRedisSerializer[T](val inner: RedisSerializer[T])
 
 private[rediscala] object SnappyRedisSerializer {
 
-    def apply[T: ClassTag](): SnappyRedisSerializer[T] = {
-        new SnappyRedisSerializer[T](FstRedisSerializer[T]())
-    }
-
-    def apply[T: ClassTag](inner: RedisSerializer[T]): SnappyRedisSerializer[T] = {
+    def apply[T](inner: RedisSerializer[T] = new FstRedisSerializer[T]()): SnappyRedisSerializer[T] = {
         new SnappyRedisSerializer[T](inner)
     }
 }

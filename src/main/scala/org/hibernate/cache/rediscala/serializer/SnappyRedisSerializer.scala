@@ -3,7 +3,7 @@ package org.hibernate.cache.rediscala.serializer
 import org.xerial.snappy.Snappy
 
 /**
- * SnappyRedisSerializer
+ * RedisSerializer by Snappy compress library
  * Created by debop on 2014. 3. 30.
  */
 private[rediscala] class SnappyRedisSerializer[T](val inner: RedisSerializer[T]) extends RedisSerializer[T] {

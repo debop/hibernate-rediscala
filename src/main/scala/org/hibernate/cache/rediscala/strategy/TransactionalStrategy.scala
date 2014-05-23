@@ -4,12 +4,6 @@ import org.hibernate.cache.rediscala.regions._
 import org.hibernate.cache.spi.access._
 import org.hibernate.cfg.Settings
 
-/**
- * org.hibernate.cache.rediscala.strategy.TransactionalEntityRegionCollectionAccessStrategy
- *
- * @author 배성혁 sunghyouk.bae@gmail.com
- * @since 2014. 2. 21. 오후 1:19
- */
 class TransactionalRedisCollectionAccessStrategy(private[this] val _region: RedisCollectionRegion,
                                                  private[this] val _settings: Settings)
     extends AbstractRedisAccessStrategy(_region, _settings)
@@ -39,12 +33,6 @@ class TransactionalRedisCollectionAccessStrategy(private[this] val _region: Redi
     }
 }
 
-/**
- * org.hibernate.cache.rediscala.strategy.TransactionalEntityRegionAccessStrategy
- *
- * @author 배성혁 sunghyouk.bae@gmail.com
- * @since 2014. 2. 21. 오후 1:17
- */
 class TransactionalRedisEntityRegionAccessStrategy(private[this] val _region: RedisEntityRegion,
                                                    private[this] val _settings: Settings)
     extends AbstractRedisAccessStrategy(_region, _settings)
@@ -98,12 +86,6 @@ class TransactionalRedisEntityRegionAccessStrategy(private[this] val _region: Re
 
 }
 
-/**
- * org.hibernate.cache.rediscala.strategy.TransactionalRedisNatualIdRegionAccessStrategy
- *
- * @author 배성혁 sunghyouk.bae@gmail.com
- * @since 2014. 2. 21. 오후 1:22
- */
 class TransactionalRedisNatualIdRegionAccessStrategy(private[this] val _region: RedisNaturalIdRegion,
                                                      private[this] val _settings: Settings)
     extends AbstractRedisAccessStrategy(_region, _settings)

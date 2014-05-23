@@ -1,12 +1,10 @@
 language: scala
 
 script:
-  - "sbt ++$TRAVIS_SCALA_VERSION test"
-after_script:
-  - "sbt coveralls"
+  - "mvn clean test"
 
 scala:
-  - 2.10.4
+  - 2.11.1
 
 jdk:
   - oraclejdk7
@@ -15,4 +13,4 @@ services:
   - redis
 
 env:
-  - SBT_OPTS="-ea -server -Xmx8192m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:PermSize=256M -XX:MaxPermSize=512M"
+  - MAVEN_OPTS="-ea -server -Xmx8192m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:PermSize=256M -XX:MaxPermSize=512M"

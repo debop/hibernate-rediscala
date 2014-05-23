@@ -4,12 +4,6 @@ import org.hibernate.cache.rediscala.regions._
 import org.hibernate.cache.spi.access.AccessType._
 import org.hibernate.cache.spi.access._
 
-/**
- * org.hibernate.cache.rediscala.strategy.AccessStrategyFactory
- *
- * @author 배성혁 sunghyouk.bae@gmail.com
- * @since 2014. 2. 21. 오후 1:09
- */
 trait RedisAccessStrategyFactory {
 
     def createEntityRegionAccessStrategy(entityRegion: RedisEntityRegion,
@@ -27,7 +21,6 @@ object RedisAccessStrategyFactory {
 }
 
 class RedisAccessStrategyFactoryImpl extends RedisAccessStrategyFactory {
-
 
     override def createCollectionRegionAccessStrategy(collectionRegion: RedisCollectionRegion,
                                                       accessType: AccessType): CollectionRegionAccessStrategy = {

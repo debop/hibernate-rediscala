@@ -4,12 +4,7 @@ import org.hibernate.cache.rediscala.regions.RedisTransactionalDataRegion
 import org.hibernate.cache.spi.access.SoftLock
 import org.hibernate.cfg.Settings
 
-/**
- * org.hibernate.cache.rediscala.strategy.AbstractRedisAccessStrategy
- *
- * @author 배성혁 sunghyouk.bae@gmail.com
- * @since 2014. 2. 21. 오전 9:28
- */
+
 abstract class AbstractRedisAccessStrategy[T <: RedisTransactionalDataRegion](val region: T, val settings: Settings) {
 
     def putFromLoad(key: Any, value: Any, txTimestamp: Long, version: Any): Boolean =

@@ -9,10 +9,9 @@ import org.hibernate.cache.spi.access.AccessType
 import org.hibernate.cfg.Settings
 import org.slf4j.LoggerFactory
 import scala.collection.mutable
-import org.hibernate.cache.rediscala.regions.RedisEntityRegion
 
 /**
- * AbstractRedisRegionFactory
+ * RegionFactory for Redis
  *
  * @author 배성혁 sunghyouk.bae@gmail.com
  * @since 2014. 2. 20. 오후 2:16
@@ -40,11 +39,11 @@ abstract class AbstractRedisRegionFactory(val props: Properties) extends RegionF
                                    metadata: CacheDataDescription): EntityRegion = {
         regionNames += regionName
         new RedisEntityRegion(accessStrategyFactory,
-            cache,
-            regionName,
-            settings,
-            metadata,
-            properties)
+                                 cache,
+                                 regionName,
+                                 settings,
+                                 metadata,
+                                 properties)
     }
 
     override def buildCollectionRegion(regionName: String,
@@ -52,11 +51,11 @@ abstract class AbstractRedisRegionFactory(val props: Properties) extends RegionF
                                        metadata: CacheDataDescription): CollectionRegion = {
         regionNames += regionName
         new RedisCollectionRegion(accessStrategyFactory,
-            cache,
-            regionName,
-            settings,
-            metadata,
-            properties)
+                                     cache,
+                                     regionName,
+                                     settings,
+                                     metadata,
+                                     properties)
     }
 
     override def buildNaturalIdRegion(regionName: String,
@@ -64,27 +63,28 @@ abstract class AbstractRedisRegionFactory(val props: Properties) extends RegionF
                                       metadata: CacheDataDescription): NaturalIdRegion = {
         regionNames += regionName
         new RedisNaturalIdRegion(accessStrategyFactory,
-            cache,
-            regionName,
-            settings,
-            metadata,
-            properties)
+                                    cache,
+                                    regionName,
+                                    settings,
+                                    metadata,
+                                    properties)
     }
 
     override def buildQueryResultsRegion(regionName: String,
                                          properties: Properties): QueryResultsRegion = {
         regionNames += regionName
         new RedisQueryResultsRegion(accessStrategyFactory,
-            cache,
-            regionName,
-            properties)
+                                       cache,
+                                       regionName,
+                                       properties)
     }
 
-    override def buildTimestampsRegion(regionName: String, properties: Properties): TimestampsRegion = {
+    override def buildTimestampsRegion(regionName: String,
+                                       properties: Properties): TimestampsRegion = {
         new RedisTimestampsRegion(accessStrategyFactory,
-            cache,
-            regionName,
-            properties)
+                                     cache,
+                                     regionName,
+                                     properties)
     }
 
     protected def manageExpiration(cache: HibernateRedisCache): Unit = synchronized {
@@ -103,7 +103,8 @@ abstract class AbstractRedisRegionFactory(val props: Properties) extends RegionF
                         }
                     } catch {
                         case ignored: InterruptedException =>
-                        case e: Exception => log.debug(s"Error occurred in expiration management thread. but it was ignored", e)
+                        case e: Exception =>
+                            log.debug(s"Error occurred in expiration management thread. but it was ignored", e)
                     }
                 }
             }

@@ -2,9 +2,9 @@ package org.hibernate.cache.rediscala
 
 import java.util.Properties
 import org.hibernate.cache.CacheException
+import org.hibernate.cache.rediscala.utils.HibernateRedisUtil
 import org.hibernate.cfg.Settings
 import org.slf4j.LoggerFactory
-import org.hibernate.cache.rediscala.utils.HibernateRedisUtil
 
 /**
  * RedisRegionFactory
@@ -12,7 +12,8 @@ import org.hibernate.cache.rediscala.utils.HibernateRedisUtil
  * @author 배성혁 sunghyouk.bae@gmail.com
  * @since 2014. 2. 21. 오후 3:33
  */
-class RedisRegionFactory(private[this] val _props: Properties) extends AbstractRedisRegionFactory(_props) {
+class RedisRegionFactory(private[this] val _props: Properties)
+    extends AbstractRedisRegionFactory(_props) {
 
     private lazy val log = LoggerFactory.getLogger(getClass)
 

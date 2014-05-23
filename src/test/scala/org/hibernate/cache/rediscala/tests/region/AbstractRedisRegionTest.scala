@@ -4,6 +4,7 @@ import org.hibernate.cache.rediscala.strategy.AbstractReadWriteRedisAccessStrate
 import org.hibernate.cache.rediscala.tests.domain.{Item, VersionedItem}
 import org.hibernate.cache.rediscala.utils.HibernateRedisUtil
 import org.hibernate.cfg.{AvailableSettings, Configuration}
+import org.hibernate.dialect.H2Dialect
 import org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
 import org.hibernate.testing.junit4.BaseCoreFunctionalTestCase
 import org.junit.{Ignore, Assert, Test}

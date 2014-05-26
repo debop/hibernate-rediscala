@@ -1,6 +1,7 @@
 package org.hibernate.cache.rediscala
 
 import java.util.Properties
+import java.util.concurrent.ConcurrentSkipListSet
 import org.hibernate.cache.rediscala.client.HibernateRedisCache
 import org.hibernate.cache.rediscala.regions._
 import org.hibernate.cache.rediscala.strategy._
@@ -8,7 +9,7 @@ import org.hibernate.cache.spi._
 import org.hibernate.cache.spi.access.AccessType
 import org.hibernate.cfg.Settings
 import org.slf4j.LoggerFactory
-import scala.collection.mutable
+import scala.collection.JavaConversions._
 
 /**
  * RegionFactory for Redis
@@ -22,7 +23,7 @@ abstract class AbstractRedisRegionFactory(val props: Properties) extends RegionF
 
     protected var settings: Settings = null
     protected val accessStrategyFactory = RedisAccessStrategyFactory()
-    protected val regionNames = new mutable.LinkedHashSet[String] with mutable.SynchronizedSet[String]
+    protected val regionNames = new ConcurrentSkipListSet[String]()
 
     protected var cache: HibernateRedisCache = null
     protected var expirationThread: Thread = null
@@ -37,7 +38,7 @@ abstract class AbstractRedisRegionFactory(val props: Properties) extends RegionF
     override def buildEntityRegion(regionName: String,
                                    properties: Properties,
                                    metadata: CacheDataDescription): EntityRegion = {
-        regionNames += regionName
+        regionNames.add(regionName)
         new RedisEntityRegion(accessStrategyFactory,
                                  cache,
                                  regionName,
@@ -49,7 +50,7 @@ abstract class AbstractRedisRegionFactory(val props: Properties) extends RegionF
     override def buildCollectionRegion(regionName: String,
                                        properties: Properties,
                                        metadata: CacheDataDescription): CollectionRegion = {
-        regionNames += regionName
+        regionNames.add(regionName)
         new RedisCollectionRegion(accessStrategyFactory,
                                      cache,
                                      regionName,
@@ -61,7 +62,7 @@ abstract class AbstractRedisRegionFactory(val props: Properties) extends RegionF
     override def buildNaturalIdRegion(regionName: String,
                                       properties: Properties,
                                       metadata: CacheDataDescription): NaturalIdRegion = {
-        regionNames += regionName
+        regionNames.add(regionName)
         new RedisNaturalIdRegion(accessStrategyFactory,
                                     cache,
                                     regionName,
@@ -72,7 +73,7 @@ abstract class AbstractRedisRegionFactory(val props: Properties) extends RegionF
 
     override def buildQueryResultsRegion(regionName: String,
                                          properties: Properties): QueryResultsRegion = {
-        regionNames += regionName
+        regionNames.add(regionName)
         new RedisQueryResultsRegion(accessStrategyFactory,
                                        cache,
                                        regionName,
@@ -97,7 +98,7 @@ abstract class AbstractRedisRegionFactory(val props: Properties) extends RegionF
                     try {
                         Thread.sleep(1000)
                         if (cache != null && regionNames.size > 0) {
-                            regionNames.par.foreach { region =>
+                            regionNames.foreach { region =>
                                 cache.expire(region)
                             }
                         }

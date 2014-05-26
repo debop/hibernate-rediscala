@@ -1,10 +1,14 @@
 apply plugin: 'scala'
-apply plugin: 'java'
 apply plugin: 'maven'
-apply plugin: 'idea'
 
 group = 'com.github.debop'
 version = '1.1.1-SNAPSHOT'
+
+compileScala {
+    options.encoding = 'UTF-8'
+    sourceCompatibility = '1.7'
+    targetCompatibility = '1.7'
+}
 
 ext {
     scalaVersion = '2.11.1'
@@ -65,5 +69,20 @@ repositories {
     }
     maven {
         url "http://dl.bintray.com/etaty/maven"
+    }
+}
+
+test {
+    testLogging {
+        // set options for log level LIFECYCLE
+        events 'failed'
+        exceptionFormat 'short'
+        showStandardStreams true
+
+        // set options for log level DEBUG
+        debug {
+            events "started", "skipped", "failed"
+            exceptionFormat "full"
+        }
     }
 }

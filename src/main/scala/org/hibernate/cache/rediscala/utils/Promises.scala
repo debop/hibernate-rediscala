@@ -1,6 +1,7 @@
 package org.hibernate.cache.rediscala.utils
 
 import java.util.concurrent.TimeUnit
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent._
 import scala.concurrent.duration._
 
@@ -10,15 +11,15 @@ import scala.concurrent.duration._
  */
 private[rediscala] object Promises {
 
-    implicit val executor = ExecutionContext.fromExecutor(scala.concurrent.ExecutionContext.Implicits.global)
+    // implicit val executor = ExecutionContext.fromExecutor(scala.concurrent.ExecutionContext.Implicits.global)
     lazy val DefaultAtMost = FiniteDuration(15, TimeUnit.MILLISECONDS)
 
-    def exec[V](block: => V): Future[V] = future {
+    def exec[V](block: => V): Future[V] = Future {
         require(block != null)
         block
     }
 
-    def exec[T, V](input: T)(func: T => V): Future[V] = future {
+    def exec[T, V](input: T)(func: T => V): Future[V] = Future {
         require(func != null)
         func(input)
     }

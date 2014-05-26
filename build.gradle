@@ -1,0 +1,69 @@
+apply plugin: 'scala'
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'idea'
+
+group = 'com.github.debop'
+version = '1.1.1-SNAPSHOT'
+
+ext {
+    scalaVersion = '2.11.1'
+    scalaMainVersion = '2.11'
+    akkaVersion = '2.3.3'
+
+    slf4jVersion = '1.7.7'
+
+    hibernateVersion = '4.3.5.Final'
+    springVersion = '4.0.5.RELEASE'
+    springDataJpaVersion = '1.6.0.RELEASE'
+}
+
+dependencies {
+
+    compile "org.hibernate:hibernate-entitymanager:${hibernateVersion}"
+    testCompile "org.hibernate:hibernate-testing:${hibernateVersion}"
+
+    compile "org.scala-lang:scala-compiler:${scalaVersion}"
+    compile "org.scala-lang:scala-library:${scalaVersion}"
+    compile "com.typesafe.akka:akka-actor_${scalaMainVersion}:${akkaVersion}"
+    compile "com.etaty.rediscala:rediscala_${scalaMainVersion}:1.3.1"
+
+    compile "org.xerial.snappy:snappy-java:1.1.0.1"
+    compile "de.ruedigermoeller:fst:1.55"
+
+    compile "ch.qos.logback:logback-classic:1.1.2"
+    compile "org.slf4j:slf4j-api:${slf4jVersion}"
+
+    // spring framework
+    testCompile "org.springframework:spring-context:${springVersion}"
+    testCompile "org.springframework:spring-orm:${springVersion}"
+    testCompile "org.springframework:spring-test:${springVersion}"
+
+    testCompile "org.springframework.data:spring-data-jpa:${springDataJpaVersion}"
+
+    // Connection Providers
+    testCompile "com.jolbox:bonecp:0.8.0.RELEASE"
+    testCompile "com.zaxxer:HikariCP:1.3.8"
+
+    // Database driver
+    testCompile "com.h2database:h2:1.4.178"
+    testCompile "org.hsqldb:hsqldb:2.3.2"
+    testCompile "mysql:mysql-connector-java:5.1.29"
+
+    // We use Scalatest for testing our library
+    testCompile 'junit:junit:4.11'
+    testCompile "org.scalatest:scalatest_${scalaMainVersion}:2.1.7"
+    testCompile "com.github.axel22:scalameter_${scalaMainVersion}:0.5-M2"
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    jcenter()
+    maven {
+        url "http://repo.typesafe.com/typesafe/releases/"
+    }
+    maven {
+        url "http://dl.bintray.com/etaty/maven"
+    }
+}

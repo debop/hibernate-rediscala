@@ -1,7 +1,7 @@
 package org.hibernate.cache.rediscala.tests
 
-import org.scalatest.{BeforeAndAfter, Matchers, FunSuite}
 import java.util.Properties
+import org.scalatest.{BeforeAndAfter, Matchers, FunSuite}
 
 /**
  * PropertiesTest

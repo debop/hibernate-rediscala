@@ -11,9 +11,9 @@ import scala.util.Try
 
 private[rediscala] object FstRedisSerializer {
 
-    lazy val defaultCfg = FSTConfiguration.createDefaultConfiguration()
+  lazy val defaultCfg = FSTConfiguration.createDefaultConfiguration()
 
-    def apply[T](): FstRedisSerializer[T] = new FstRedisSerializer[T]()
+  def apply[T](): FstRedisSerializer[T] = new FstRedisSerializer[T]()
 }
 
 /**
@@ -23,41 +23,41 @@ private[rediscala] object FstRedisSerializer {
  */
 private[rediscala] class FstRedisSerializer[T] extends RedisSerializer[T] {
 
-    import FstRedisSerializer._
+  import FstRedisSerializer._
 
-    private lazy val log = LoggerFactory.getLogger(getClass)
+  private lazy val log = LoggerFactory.getLogger(getClass)
 
-    override def serialize(graph: T): Array[Byte] = {
-        if (graph == null || graph == None)
-            return EMPTY_BYTES
+  override def serialize(graph: T): Array[Byte] = {
+    if (graph == null || graph == None)
+      return EMPTY_BYTES
 
-        using(new ByteArrayOutputStream()) { bos =>
-            Try(defaultCfg.getObjectOutput(bos)) match {
-                case Success(oos) =>
-                    oos.writeObject(graph, Seq[Class[_]](): _*)
-                    oos.flush()
-                    bos.toByteArray
-                case Failure(e) =>
-                    log.error(s"Fail to serialize graph. $graph", e)
-                    EMPTY_BYTES
-            }
-        }
+    using(new ByteArrayOutputStream()) { bos =>
+      Try(defaultCfg.getObjectOutput(bos)) match {
+        case Success(oos) =>
+          oos.writeObject(graph, Seq[Class[_]](): _*)
+          oos.flush()
+          bos.toByteArray
+        case Failure(e) =>
+          log.error(s"Fail to serialize graph. $graph", e)
+          EMPTY_BYTES
+      }
     }
+  }
 
-    override def deserialize(bytes: Array[Byte]): T = {
-        if (bytes == null || bytes.length == 0)
-            return null.asInstanceOf[T]
+  override def deserialize(bytes: Array[Byte]): T = {
+    if (bytes == null || bytes.length == 0)
+      return null.asInstanceOf[T]
 
-        using(new ByteArrayInputStream(bytes)) { bis =>
-            Try(defaultCfg.getObjectInput(bis)) match {
-                case Success(ois) =>
-                    ois.readObject.asInstanceOf[T]
+    using(new ByteArrayInputStream(bytes)) { bis =>
+      Try(defaultCfg.getObjectInput(bis)) match {
+        case Success(ois) =>
+          ois.readObject.asInstanceOf[T]
 
-                case Failure(e) =>
-                    log.error(s"Fail to deserialize data.", e)
-                    null.asInstanceOf[T]
-            }
-        }
+        case Failure(e) =>
+          log.error(s"Fail to deserialize data.", e)
+          null.asInstanceOf[T]
+      }
     }
+  }
 }
 

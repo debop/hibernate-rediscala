@@ -6,11 +6,11 @@ package org.hibernate.cache.rediscala.utils
  */
 object Closer {
 
-    def using[A <: {def close() : Unit}, B](closable: A)(f: A => B): B = {
-        try {
-            f(closable)
-        } finally {
-            closable.close()
-        }
+  def using[A <: {def close() : Unit}, B](closable: A)(f: A => B): B = {
+    try {
+      f(closable)
+    } finally {
+      closable.close()
     }
+  }
 }

@@ -9,29 +9,29 @@ import org.scalatest.{BeforeAndAfter, Matchers, FunSuite}
  */
 class PropertiesTest extends FunSuite with Matchers with BeforeAndAfter {
 
-    test("load properties by class") {
-        val props = new Properties()
-        val cachePath = "/hibernate-redis.properties"
+  test("load properties by class") {
+    val props = new Properties()
+    val cachePath = "/hibernate-redis.properties"
 
-        val inputStream = getClass.getResourceAsStream(cachePath)
-        assert(inputStream != null)
-        props.load(inputStream)
-        inputStream.close()
+    val inputStream = getClass.getResourceAsStream(cachePath)
+    assert(inputStream != null)
+    props.load(inputStream)
+    inputStream.close()
 
-        print("properties... " + props.toString)
+    print("properties... " + props.toString)
 
-    }
+  }
 
-    test("load properties by classLoader") {
-        val props = new Properties()
-        val cachePath = "hibernate-redis.properties"
+  test("load properties by classLoader") {
+    val props = new Properties()
+    val cachePath = "hibernate-redis.properties"
 
-        val inputStream = getClass.getClassLoader.getResourceAsStream(cachePath)
-        assert(inputStream != null)
-        props.load(inputStream)
-        inputStream.close()
+    val inputStream = getClass.getClassLoader.getResourceAsStream(cachePath)
+    assert(inputStream != null)
+    props.load(inputStream)
+    inputStream.close()
 
-        print("properties... " + props.toString)
-    }
+    print("properties... " + props.toString)
+  }
 
 }

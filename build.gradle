@@ -80,13 +80,8 @@ repositories {
     mavenLocal()
     jcenter()
 
-    maven {
-        url "http://repo.typesafe.com/typesafe/releases/"
-    }
-
-    maven {
-        url "http://dl.bintray.com/etaty/maven"
-    }
+    maven { url "http://repo.typesafe.com/typesafe/releases/" }
+    maven { url "http://dl.bintray.com/etaty/maven" }
 }
 
 test {

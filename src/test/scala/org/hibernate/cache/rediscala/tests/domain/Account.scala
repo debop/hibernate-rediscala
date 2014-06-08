@@ -15,13 +15,13 @@ import scala.beans.BeanProperty
 @SerialVersionUID(6662300674854084326L)
 class Account extends Serializable {
 
-    @Id
-    @GeneratedValue
-    var id: java.lang.Long = _
+  @Id
+  @GeneratedValue
+  var id: java.lang.Long = _
 
-    @ManyToOne
-    @JoinColumn(name = "personId")
-    @BeanProperty
-    var person: Person = _
+  @ManyToOne
+  @JoinColumn(name = "personId")
+  @BeanProperty
+  var person: Person = _
 }
 

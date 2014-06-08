@@ -23,7 +23,7 @@ abstract class AbstractRedisAccessStrategy[T <: RedisTransactionalDataRegion](va
   }
 
   def removeAll() {
-    region.clear()
+    region.evictAll()
   }
 
   def evict(key: Any) {
@@ -31,6 +31,6 @@ abstract class AbstractRedisAccessStrategy[T <: RedisTransactionalDataRegion](va
   }
 
   def evictAll() {
-    removeAll()
+    region.evictAll()
   }
 }

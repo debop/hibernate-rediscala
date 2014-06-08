@@ -2,6 +2,7 @@ package org.hibernate.cache.rediscala.client
 
 import java.util.concurrent.TimeUnit
 import org.hibernate.cache.rediscala.serializer.SnappyFstCacheEntryFormatter
+import org.hibernate.cache.rediscala.utils.Promises
 import org.slf4j.LoggerFactory
 import redis.RedisClient
 import redis.api.Limit
@@ -36,6 +37,9 @@ class HibernateRedisCache(val redis: RedisClient) {
    * Cache item 존재 유무 확인
    */
   def exists(region: String, key: String): Future[Boolean] = {
+    if (isExpired(region, key))
+      return Future { false }
+
     redis.hexists(region, key)
   }
 
@@ -50,6 +54,13 @@ class HibernateRedisCache(val redis: RedisClient) {
   @inline
   def get(region: String, key: String, expireInSeconds: Long = 0): Future[Any] = {
 
+    // 이미 expired 되었다면 null 을 반환합니다.
+    if (expireInSeconds > 0 && isExpired(region, key)) {
+      redis.zrem(regionExpireKey(region), key)
+      redis.hdel(region, key)
+      return Future { null.asInstanceOf[Any] }
+    }
+
     // 값을 가져오고, 값이 있고, expiration이 설정되어 있다면 갱신합니다.
     val get = redis.hget[Any](region, key)
 
@@ -63,6 +74,14 @@ class HibernateRedisCache(val redis: RedisClient) {
     }
 
     get.map(x => x.getOrElse(null.asInstanceOf[Any]))
+  }
+
+  private def isExpired(region: String, key: String): Boolean = {
+    if (region.contains("UpdateTimestampsCache"))
+      return false
+
+    val score = redis.zscore(regionExpireKey(region), key).map(x => x.getOrElse(0D))
+    Promises.await(score) < System.currentTimeMillis
   }
 
   /**

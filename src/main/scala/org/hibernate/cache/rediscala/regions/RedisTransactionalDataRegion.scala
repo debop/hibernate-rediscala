@@ -56,13 +56,7 @@ class RedisTransactionalDataRegion(private[this] val _accessStrategyFactory: Red
   }
 
   def clear() {
-    val task = cache.deleteRegion(regionName)
-
-    task onComplete {
-      case Success(x) => log.trace(s"clear regions. regions=$regionName")
-      case Failure(e) => log.warn(s"Fail to delete regions [$regionName]", e)
-    }
-    Promises.await(task)
+    Promises.await(cache.deleteRegion(regionName))
   }
 
   def evict(key: String) {
@@ -70,6 +64,6 @@ class RedisTransactionalDataRegion(private[this] val _accessStrategyFactory: Red
   }
 
   def evictAll() {
-    clear()
+    Promises.await(cache.deleteRegion(regionName))
   }
 }

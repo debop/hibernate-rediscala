@@ -4,7 +4,7 @@ package org.hibernate.cache.rediscala.serializer
  * RedisSerializer
  * Created by debop on 2014. 3. 30.
  */
-private[rediscala] trait RedisSerializer[T] {
+trait RedisSerializer[T] {
 
   val EMPTY_BYTES = Array[Byte]()
 

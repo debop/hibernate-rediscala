@@ -6,7 +6,7 @@ import org.xerial.snappy.Snappy
  * RedisSerializer by Snappy compress library
  * Created by debop on 2014. 3. 30.
  */
-private[rediscala] class SnappyRedisSerializer[T](val inner: RedisSerializer[T]) extends RedisSerializer[T] {
+class SnappyRedisSerializer[T](val inner: RedisSerializer[T]) extends RedisSerializer[T] {
 
   override def serialize(graph: T): Array[Byte] = {
     if (graph == null || graph == None)
@@ -23,7 +23,7 @@ private[rediscala] class SnappyRedisSerializer[T](val inner: RedisSerializer[T])
   }
 }
 
-private[rediscala] object SnappyRedisSerializer {
+object SnappyRedisSerializer {
 
   def apply[T](inner: RedisSerializer[T] = new FstRedisSerializer[T]()): SnappyRedisSerializer[T] = {
     new SnappyRedisSerializer[T](inner)

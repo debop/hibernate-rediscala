@@ -1,13 +1,14 @@
 package org.hibernate.cache.rediscala.serializer
 
-import java.io.{ObjectInputStream, ByteArrayInputStream, ObjectOutputStream, ByteArrayOutputStream}
+import java.io.{ByteArrayInputStream, ByteArrayOutputStream, ObjectInputStream, ObjectOutputStream}
+
 import org.hibernate.cache.rediscala.utils.Closer._
 
 /**
  * Java Built-in Serializer
  * Created by debop on 2014. 3. 30.
  */
-private[rediscala] class BinaryRedisSerializer[T] extends RedisSerializer[T] {
+class BinaryRedisSerializer[T] extends RedisSerializer[T] {
 
   override def serialize(graph: T): Array[Byte] = {
     if (graph == null) return EMPTY_BYTES
@@ -32,7 +33,7 @@ private[rediscala] class BinaryRedisSerializer[T] extends RedisSerializer[T] {
   }
 }
 
-private[rediscala] object BinaryRedisSerializer {
+object BinaryRedisSerializer {
 
   def apply[T](): BinaryRedisSerializer[T] = new BinaryRedisSerializer[T]()
 }

@@ -14,25 +14,22 @@ and [snappy-java](https://github.com/xerial/snappy-java). thanks!
 ### Maven Repository
 
 add dependency
+
 ```xml
 <dependency>
     <groupId>com.github.debop</groupId>
     <artifactId>hibernate-rediscala</artifactId>
-    <version>1.1</version>
+    <version>1.1.2</version>
 </dependency>
 ```
 
 add repository
+
 ```xml
 <repositories>
     <repository>
-        <id>debop-releases</id>
-        <url>https://github.com/debop/debop-maven-repo/raw/master/releases</url>
-    </repository>
-    <!-- for snapshot -->
-    <repository>
-        <id>debop-snapshots</id>
-        <url>https://github.com/debop/debop-maven-repo/raw/master/snapshots</url>
+        <id>debop-releases-bintray</id>
+        <url>http://dl.bintray.com/debop/maven</url>
     </repository>
 </repositories>
 ```

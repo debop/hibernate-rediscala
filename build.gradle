@@ -14,7 +14,15 @@ apply plugin: 'maven'
 apply plugin: 'scalatest'
 
 group = 'com.github.debop'
-version = '1.1.2-SNAPSHOT'
+version = '1.1.2'
+
+configure(install.repositories.mavenInstaller) {
+    pom.project {
+        groupId 'com.github.debop'
+        artifactId 'hibernate-rediscala'
+        version '1.1.2'
+    }
+}
 
 ext {
     jdkVersion = '1.7'

@@ -23,9 +23,9 @@ object FstRedisSerializer {
  */
 class FstRedisSerializer[T] extends RedisSerializer[T] {
 
-  import org.hibernate.cache.rediscala.serializer.FstRedisSerializer._
-
   private lazy val log = LoggerFactory.getLogger(getClass)
+
+  def defaultCfg: FSTConfiguration = FstRedisSerializer.defaultCfg
 
   override def serialize(graph: T): Array[Byte] = {
     if (graph == null || graph == None)

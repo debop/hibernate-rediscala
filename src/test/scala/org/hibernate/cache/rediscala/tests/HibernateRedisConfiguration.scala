@@ -1,7 +1,8 @@
 package org.hibernate.cache.rediscala.tests
 
-import com.zaxxer.hikari.{HikariDataSource, HikariConfig}
 import java.util.Properties
+
+import com.zaxxer.hikari.{HikariConfig, HikariDataSource}
 import org.hibernate.SessionFactory
 import org.hibernate.cache.rediscala.SingletonRedisRegionFactory
 import org.hibernate.cache.rediscala.tests.domain.Account
@@ -9,7 +10,7 @@ import org.hibernate.cfg.AvailableSettings
 import org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
 import org.springframework.context.annotation.{Bean, Configuration}
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor
-import org.springframework.orm.hibernate4.{HibernateTransactionManager, HibernateExceptionTranslator, LocalSessionFactoryBean}
+import org.springframework.orm.hibernate4.{HibernateExceptionTranslator, HibernateTransactionManager, LocalSessionFactoryBean}
 import org.springframework.transaction.annotation.EnableTransactionManagement
 
 /**
@@ -59,6 +60,8 @@ class HibernateRedisConfiguration {
     config.addDataSourceProperty("password", "")
 
     config.setInitializationFailFast(true)
+    config.setMaximumPoolSize(100)
+    config.setMinimumIdle(2)
 
     new HikariDataSource(config)
   }
